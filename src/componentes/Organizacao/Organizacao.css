@@ -1,0 +1,22 @@
+.organizacao{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    height: 200px;
+    max-width: 1040px;
+    justify-content: center;
+    gap: 32px;
+}
+
+.organizacao h2{
+    color: #6278F7;
+    font-size: 40px;
+}
+
+.organizacao img{
+    cursor: pointer;
+}
+
+.organizacao img:hover{
+    opacity: 80%;
+}

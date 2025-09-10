@@ -14,7 +14,7 @@ const Formulario = (props) => {
     const aoSalvar = (evento) => {
         evento.preventDefault()
         props.aoColaboradorCadastrado({
-            nome, //aqui é a mesma coisa que:     nome: nome,
+            nome, //aqui é a mesma coisa que ----> nome: nome,
             cargo,
             imagem,
             time
@@ -28,7 +28,7 @@ const Formulario = (props) => {
     }
 
     return (
-        <section className='formulario'>
+        <section className='formulario' style={{ display: props.formularioVisivel ? 'flex' : 'none' }}>
             <form onSubmit={aoSalvar}>
                 <h2>Preencha os dados para criar o card do colaborador</h2>
                 <CampoTexto

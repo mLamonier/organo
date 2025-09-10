@@ -3,6 +3,7 @@ import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
 import Rodape from './componentes/Rodape';
+import Organizacao from './componentes/Organizacao';
 
 function App() {
 
@@ -50,11 +51,24 @@ function App() {
     setColaboradores([...colaboradores, colaborador]) ///'...colaboradores' esparrama os novos colaboradores junto com os antigos 
   }
 
+  const [formularioVisivel, setFormularioVisivel] = useState(false);
+
+  const trocarVisibilidade = () => {
+    //prev é o nome inventado para o valor mais atualizado do estado, aqui está invertendo o valor anterior, que de inicio é false
+    //deve ser passado uma função de retorno dentro do setter para o React entender que ele precisa renderizar novamente
+    setFormularioVisivel(prev => !prev)
+  }
+
   return (
     <div className="App">
       <Banner />
 
-      <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)} />
+      <Formulario
+        times={times.map(time => time.nome)}
+        aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
+        formularioVisivel={formularioVisivel}
+      />
+      <Organizacao trocarVisibilidade={trocarVisibilidade} />
 
       {times.map(time =>
         <Time
@@ -66,7 +80,7 @@ function App() {
         />
       )}
 
-      <Rodape/>
+      <Rodape />
 
     </div>
   );
