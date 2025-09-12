@@ -4,51 +4,127 @@ import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
 import Rodape from './componentes/Rodape';
 import Organizacao from './componentes/Organizacao';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  const times = [
+  const [times, setTimes] = useState([
     {
+      id: uuidv4(),
       nome: 'Programação',
-      corPrimaria: '#57C278',
-      corSecundaria: '#D9F7E9'
+      cor: '#57C278'
     },
     {
+      id: uuidv4(),
       nome: 'Front-End',
-      corPrimaria: '#82CFFA',
-      corSecundaria: '#E8F8FF'
+      cor: '#82CFFA'
     },
     {
+      id: uuidv4(),
       nome: 'Data Science',
-      corPrimaria: '#A6D157',
-      corSecundaria: '#F0F8E2'
+      cor: '#A6D157'
     },
     {
+      id: uuidv4(),
       nome: 'Devops',
-      corPrimaria: '#E06B69',
-      corSecundaria: '#FDE7E8'
+      cor: '#E06B69'
     },
     {
+      id: uuidv4(),
       nome: 'UX e Design',
-      corPrimaria: '#DB6EBF',
-      corSecundaria: '#FAE9F5'
+      cor: '#DB6EBF'
     },
     {
+      id: uuidv4(),
       nome: 'Mobile',
-      corPrimaria: '#FFBA05',
-      corSecundaria: '#FFF5D9'
+      cor: '#FFBA05'
     },
     {
+      id: uuidv4(),
       nome: 'Inovação e Gestão',
-      corPrimaria: '#FFBA29',
-      corSecundaria: '#FFEEDF'
+      cor: '#FFBA29'
     },
-  ]
+  ])
 
-  const [colaboradores, setColaboradores] = useState([])
+  const [colaboradores, setColaboradores] = useState([
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Dev Front-End',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Front-End'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Dev Front-End',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Front-End'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Dev Front-End',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Front-End'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Dev Front-End',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Front-End'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Programador',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Programação'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Programador',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Programação'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Programador',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Programação'
+    },
+    {
+      id: uuidv4(),
+      nome: 'Miguel',
+      cargo: 'Programador',
+      imagem: "https://github.com/mlamonier.png",
+      time: 'Programação'
+    },
+  ])
+
+  function mudarCorDoTime(cor, id) {
+    setTimes(times.map(time => {
+      if (time.id === id) {
+        time.cor = cor
+      }
+      return time;
+    }))
+  }
 
   const aoNovoColaboradorAdicionado = (colaborador) => {
-    setColaboradores([...colaboradores, colaborador]) ///'...colaboradores' esparrama os novos colaboradores junto com os antigos 
+    setColaboradores([...colaboradores, {...colaborador, id: uuidv4()}]) ///'...colaboradores' esparrama os novos colaboradores junto com os antigos 
+  }
+  
+  function cadastrarTime(novoTime){
+    if(times.some(time => time.nome.toLowerCase() === novoTime.nome.toLowerCase())){
+      alert('Já existe um time com este nome, escolha outro');
+      return
+    } else{
+      setTimes([ ...times, { ...novoTime, id: uuidv4() }])
+    }
   }
 
   const [formularioVisivel, setFormularioVisivel] = useState(false);
@@ -59,24 +135,32 @@ function App() {
     setFormularioVisivel(prev => !prev)
   }
 
+  function deletarColaborador(id) {
+    // aqui se cria um novo array sem o colaborador que foi clicado, dai quando o React renderiza, ele não aparece no novo array
+    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id))
+  }
+
   return (
     <div className="App">
       <Banner />
 
       <Formulario
-        times={times.map(time => time.nome)}
+        times={times.map(time => ({ nome: time.nome, id: time.id }))}
         aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
         formularioVisivel={formularioVisivel}
+        cadastrarTime={cadastrarTime}
       />
       <Organizacao trocarVisibilidade={trocarVisibilidade} />
 
       {times.map(time =>
         <Time
-          key={time.nome}
+          key={time.id}
+          id={time.id}
           nome={time.nome}
-          corPrimaria={time.corPrimaria}
-          corSecundaria={time.corSecundaria}
+          cor={time.cor}
           colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
+          aoDeletar={deletarColaborador}
+          mudarCor={mudarCorDoTime}
         />
       )}
 
