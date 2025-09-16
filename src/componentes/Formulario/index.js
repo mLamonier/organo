@@ -31,7 +31,7 @@ const Formulario = (props) => {
     }
 
     return (
-        <section className='formulario' style={{ display: props.formularioVisivel ? 'flex' : 'none' }}>
+        <section className='formulario' style={{ display: props.visibilidadeFormulario ? 'flex' : 'none' }}>
             <form onSubmit={aoSalvar}>
                 <h2>Preencha os dados para criar o card do colaborador</h2>
                 <Campo
