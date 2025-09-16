@@ -16,10 +16,12 @@
     justify-content: space-around;
     margin-top: 32px;
     flex-wrap: wrap;
+    row-gap: 24px;
 }
 
 .input-cor{
     position: absolute;
     top: 20px;
     right: 50px;
+    cursor: pointer;
 }

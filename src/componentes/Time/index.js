@@ -15,15 +15,13 @@ const Time = (props) => {
             />
             <h3 style={{ borderColor: props.cor }}>{props.nome}</h3>
             <div className='colaboradores'>
-                {props.colaboradores.map(colaborador =>
+                {props.colaboradores.map((colaborador, index) =>
                     <Colaborador
-                        key={colaborador.id}
-                        id={colaborador.id}
-                        nome={colaborador.nome}
-                        cargo={colaborador.cargo}
-                        imagem={colaborador.imagem}
+                        key={index}
+                        colaborador={colaborador} //aqui passa o objeto inteiro
                         corDeFundo={props.cor}
                         aoDeletar={props.aoDeletar}
+                        aoFavoritar={props.aoFavoritar}
                     />
                 )}
             </div>

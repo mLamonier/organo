@@ -49,6 +49,7 @@ function App() {
   const [colaboradores, setColaboradores] = useState([
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Dev Front-End',
       imagem: "https://github.com/mlamonier.png",
@@ -56,6 +57,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Dev Front-End',
       imagem: "https://github.com/mlamonier.png",
@@ -63,6 +65,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Dev Front-End',
       imagem: "https://github.com/mlamonier.png",
@@ -70,6 +73,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Dev Front-End',
       imagem: "https://github.com/mlamonier.png",
@@ -77,6 +81,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Programador',
       imagem: "https://github.com/mlamonier.png",
@@ -84,6 +89,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Programador',
       imagem: "https://github.com/mlamonier.png",
@@ -91,6 +97,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Programador',
       imagem: "https://github.com/mlamonier.png",
@@ -98,6 +105,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'Miguel',
       cargo: 'Programador',
       imagem: "https://github.com/mlamonier.png",
@@ -127,6 +135,14 @@ function App() {
     }
   }
 
+  function resolverFavorito(id) {
+    setColaboradores(colaboradores.map(colaborador => {
+      if(colaborador.id === id) colaborador.favorito = !colaborador.favorito;
+      return colaborador
+    }))
+
+  }
+
   const [formularioVisivel, setFormularioVisivel] = useState(false);
 
   const trocarVisibilidade = () => {
@@ -152,15 +168,16 @@ function App() {
       />
       <Organizacao trocarVisibilidade={trocarVisibilidade} />
 
-      {times.map(time =>
+      {times.map((time, index) =>
         <Time
-          key={time.id}
+          key={index}
           id={time.id}
           nome={time.nome}
           cor={time.cor}
           colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
           aoDeletar={deletarColaborador}
           mudarCor={mudarCorDoTime}
+          aoFavoritar={resolverFavorito}
         />
       )}
 

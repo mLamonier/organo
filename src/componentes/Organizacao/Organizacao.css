@@ -18,5 +18,18 @@
 }
 
 .organizacao img:hover{
+    animation: pulsar 1s infinite alternate;
+}
+
+.organizacao img:active{
     opacity: 80%;
+}
+
+@keyframes pulsar {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.1);
+    }
 }
